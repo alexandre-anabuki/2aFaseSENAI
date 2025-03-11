@@ -1,0 +1,44 @@
+CREATE DATABASE clinica;
+
+CREATE TABLE clinica(
+id_clinica INT NOT NULL AUTO_INCREMENT,
+nome VARCHAR(45),
+cnpj INT,
+PRIMARY KEY (id_clinica)
+);
+
+CREATE TABLE quarto(
+id_quarto INT NOT NULL AUTO_INCREMENT,
+andar INT,
+numero INT,
+PRIMARY KEY (id_quarto),
+clinica_id INT,
+FOREIGN KEY (clinica_id)
+REFERENCES clinica (id_clinica)
+);
+
+CREATE TABLE medico(
+id_medico INT NOT NULL AUTO_INCREMENT,
+nome VARCHAR(45),
+crm INT,
+salario FLOAT,
+especialidade VARCHAR(45),
+PRIMARY KEY (id_medico),
+clinica_id INT,
+FOREIGN KEY (clinica_id)
+REFERENCES clinica (id_clinica)
+);
+
+CREATE TABLE paciente(
+id_paciente INT NOT NULL AUTO_INCREMENT,
+nome VARCHAR(45),
+rg INT,
+data_nascimento DATE,
+PRIMARY KEY (id_paciente),
+quarto_id INT,
+medico_id INT,
+FOREIGN KEY (quarto_id)
+REFERENCES quarto (id_quarto),
+FOREIGN KEY (medico_id)
+REFERENCES medico (id_medico)
+);

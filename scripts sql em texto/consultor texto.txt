@@ -1,0 +1,54 @@
+CREATE DATABASE consultor;
+
+CREATE TABLE empresa(
+id_empresa INT NOT NULL AUTO_INCREMENT,
+codigo INT,
+nome VARCHAR(45),
+endereco VARCHAR(45),
+PRIMARY KEY (id_empresa)
+);
+
+CREATE TABLE consultor(
+id_consultor INT NOT NULL AUTO_INCREMENT,
+nome VARCHAR(45),
+rg INT,
+especialidade VARCHAR(45),
+funcao VARCHAR(45),
+PRIMARY KEY (id_consultor)
+);
+
+CREATE TABLE unidade(
+id_unidade INT NOT NULL AUTO_INCREMENT,
+gerente VARCHAR(45),
+supervisor VARCHAR(45),
+PRIMARY KEY (id_unidade)
+);
+
+CREATE TABLE departamento(
+id_departamento INT NOT NULL AUTO_INCREMENT,
+nome VARCHAR(45),
+sigla VARCHAR(45),
+centro_de_custo INT,
+PRIMARY KEY (id_departamento),
+unidade_id INT,
+FOREIGN KEY (unidade_id)
+REFERENCES unidade (id_unidade)
+);
+
+CREATE TABLE projeto(
+id_projeto INT NOT NULL AUTO_INCREMENT,
+numero INT,
+data_inicio DATE,
+data_termino DATE,
+valor FLOAT,
+PRIMARY KEY (id_projeto),
+empresa_id INT,
+consultor_id INT,
+departamento_id INT,
+FOREIGN KEY (empresa_id)
+REFERENCES empresa (id_empresa),
+FOREIGN KEY (consultor_id)
+REFERENCES consultor (id_consultor),
+FOREIGN KEY (departamento_id)
+REFERENCES departamento (id_departamento)
+);

@@ -1,0 +1,96 @@
+CREATE DATABASE atividade_aula9;
+
+CREATE TABLE agencia(
+id_agencia INT NOT NULL AUTO_INCREMENT,
+nome_agencia VARCHAR(100),
+PRIMARY KEY (id_agencia)
+);
+
+CREATE TABLE categoria(
+id_categoria INT NOT NULL AUTO_INCREMENT,
+nome_categoria VARCHAR(100),
+PRIMARY KEY (id_categoria)
+);
+
+CREATE TABLE tipo_conta(
+id_tipo_conta INT NOT NULL AUTO_INCREMENT,
+des_tipo_conta VARCHAR(100),
+PRIMARY KEY (id_tipo_conta)
+);
+
+CREATE TABLE cliente(
+id_cliente INT NOT NULL AUTO_INCREMENT,
+nome_cliente VARCHAR(100),
+num_cpf_cnpj VARCHAR(20),
+num_celular VARCHAR(20),
+rua VARCHAR(100),
+numero INT,
+bairro VARCHAR(45),
+cep VARCHAR(45),
+cidade VARCHAR(45),
+estado VARCHAR(45),
+PRIMARY KEY (id_cliente),
+categoria_id INT,
+FOREIGN KEY (categoria_id)
+REFERENCEs categora (id_categoria)
+);
+
+CREATE TABLE conta(
+id_conta INT NOT NULL AUTO_INCREMENT,
+saldo DECIMAL(9,2),
+agencia_id INT,
+FOREIGN KEY (agencia_id)
+REFERENCES agencia (id_agencia),
+tipo_conta_id INT,
+FOREIGN KEY (tipo_conta_id)
+REFERENCES tipo_conta (id_tipo_conta),
+cliente_id INT,
+FOREIGN KEY (cliente_id)
+REFERENCES cliente (id_cliente),
+PRIMARY KEY (id_conta)
+);
+
+INSERT INTO cliente
+(nome_cliente, num_cpf_cnpj, num_celular, rua, numero, bairro, cep, cidade, estado, categoria_id)
+VALUES
+('Marcos', '123321231-98', '1234-5678', 'Fulano', 100, 'bairro1', '14021-231', 'cidade1', 'estado1', 1),
+('Joao', '321123312-89', '4321-8765', 'Ciclano', 101, 'bairro2', '51231-323', 'cidade2', 'estado2', 4),
+('Guilherme', '908789076-10', '1928-3456', 'Fulana', 300, 'bairro3', '98761-567', 'cidade3', 'estado3', 3),
+('Vitor', '786762123-67', '1243-4213', 'Ciclana', 321, 'bairro4', '75130-845', 'cidade4', 'estado4', 2),
+('Aline', '789001123-25', '2341-5132', 'Zezinho', 890, 'bairro5', '56234-175', 'cidade5', 'estado5', 2),
+('Gustavo', '235124425-52', '9021-3487', 'Luizinho', 345, 'bairro6', '34765-901', 'cidade6', 'estado6', 3),
+('Fernando', '236512784-53', '5412-3423', 'Santos', 432, 'bairro7', '03451-420', 'cidade7', 'estado7', 4),
+('Jhonas', '235765098-27', '3433-0990', 'Santana', 923, 'bairro8', '43521-645', 'cidade8', 'estado8', 1);
+
+INSERT INTO categoria
+(nome_categoria)
+VALUES
+('Private'),
+('Exclusive'),
+('Gold'),
+('Basic');
+
+INSERT INTO agencia
+(nome_agencia)
+VALUES
+('Campeche'),
+('Ingleses'),
+('Centro');
+
+INSERT INTO conta
+(saldo, tipo_conta_id, cliente_id, agencia_id)
+VALUES
+(1000.90, 1, 1, 1),
+(2000.12, 1, 2, 1),
+(1234.12, 2, 3, 3),
+(4312.76, 2, 4, 1),
+(5000.43, 1, 5, 2),
+(3241.34, 2, 6, 2),
+(5231.72, 1, 7, 3),
+(4978.34, 2, 8, 3);
+
+INSERT INTO tipo_conta
+(des_tipo_conta)
+VALUES
+('Poupanca'),
+('Corrente');

@@ -1,0 +1,17 @@
+CREATE DATABASE aula_03_25;
+
+CREATE TABLE aluno(
+id_aluno INT NOT NULL AUTO_INCREMENT,
+nome VARCHAR(45),
+matricula INT,
+data_nascimento DATE,
+PRIMARY KEY (id_aluno)
+);
+
+INSERT INTO aluno
+(nome, matricula, data_nascimento)
+VALUES
+('Marcos', 23456, '1987-05-10'),
+('Ana', 99999, '1990-04-30');
+
+SELECT * FROM aluno;
