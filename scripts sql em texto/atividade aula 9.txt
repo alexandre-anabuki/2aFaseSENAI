@@ -94,3 +94,53 @@ INSERT INTO tipo_conta
 VALUES
 ('Poupanca'),
 ('Corrente');
+
+SELECT * FROM categoria;
+SELECT * FROM cliente;
+SELECT * FROM conta;
+SELECT * FROM tipo_conta;
+SELECT * FROM agencia;
+
+UPDATE categoria
+SET nome_categoria = 'Personalite'
+WHERE id_categoria = 1;
+
+UPDATE cliente
+SET categoria_id = 3
+WHERE id_cliente = 2;
+
+UPDATE cliente
+SET categoria_id = 3
+WHERE id_cliente = 7;
+
+UPDATE cliente
+SET categoria_id = 4
+WHERE id_cliente = 4;
+
+UPDATE cliente
+SET categoria_id = 4
+WHERE id_cliente = 5;
+
+DELETE FROM categoria
+WHERE id_categoria = 2;
+
+DELETE FROM conta
+WHERE id_conta = 1;
+
+DELETE FROM cliente
+WHERE id_cliente = 1;
+
+UPDATE tipo_conta
+SET des_tipo_conta = 'Poupanca digital'
+WHERE id_tipo_conta = 1;
+
+UPDATE conta
+SET agencia_id = 2
+WHERE id_conta = 2;
+
+UPDATE conta
+SET agencia_id = 2
+WHERE id_conta = 4;
+
+DELETE FROM agencia
+WHERE id_agencia = 1;
