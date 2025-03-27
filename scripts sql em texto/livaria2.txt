@@ -1,0 +1,118 @@
+CREATE DATABASE livraria2;
+
+CREATE TABLE editora(
+id_editora INT NOT NULL AUTO_INCREMENT,
+nomefantasia_editora ENUM('Editora A', 'Editora B', 'Editora C') NOT NULL,
+razaosocial_editora VARCHAR(100) NOT NULL,
+pais VARCHAR (45) DEFAULT 'Brasil',
+cep_editora VARCHAR(45),
+numero_editora INT,
+telefone_editora VARCHAR(45),
+PRIMARY KEY (id_editora)
+);
+
+CREATE TABLE autor(
+id_autor INT NOT NULL AUTO_INCREMENT,
+nome_autor VARCHAR(45) NOT NULL,
+rg_autor INT,
+PRIMARY KEY (id_autor)
+);
+
+CREATE TABLE financiador(
+id_financiador INT NOT NULL AUTO_INCREMENT,
+nome_financiador VARCHAR(45) DEFAULT 'Financiador Público',
+cnpj_financiador VARCHAR(45),
+PRIMARY KEY (id_financiador)
+);
+
+CREATE TABLE cliente(
+id_cliente INT NOT NULL AUTO_INCREMENT,
+nome_cliente VARCHAR(45) NOT NULL,
+rg_cliente INT,
+cpf_cliente BIGINT UNIQUE,
+pais VARCHAR(45) DEFAULT 'Brasil',
+cep_cliente VARCHAR (45),
+numero_cliente INT,
+PRIMARY KEY (id_cliente)
+);
+
+CREATE TABLE pedido(
+id_pedido INT NOT NULL AUTO_INCREMENT,
+qtd_pedido INT,
+CHECK (qtd_pedido >0),
+livro_id INT,
+FOREIGN KEY (livro_id)
+REFERENCES livro (id_livro),
+cliente_id INT,
+FOREIGN KEY (cliente_id)
+REFERENCES cliente (id_cliente),
+PRIMARY KEY (id_pedido)
+);
+
+CREATE TABLE livro(
+id_livro INT NOT NULL AUTO_INCREMENT,
+isbn_livro VARCHAR(45),
+titulo_livro VARCHAR(45),
+preco_livro DECIMAl(9,2),
+CHECK (preco_livro >0),
+categoria_livro ENUM('Horror', 'Romance', 'Ficção', 'Ação'),
+editora_id INT,
+FOREIGN KEY (editora_id)
+REFERENCES editora (id_editora),
+autor_id INT,
+FOREIGN KEY (autor_id)
+REFERENCES autor (id_autor),
+financiador_id INT,
+FOREIGN KEY (financiador_id)
+REFERENCES financiador (id_financiador),
+PRIMARY KEY (id_livro)
+);
+
+INSERT INTO editora
+(nomefantasia_editora, razaosocial_editora, cep_editora, numero_editora, telefone_editora, pais)
+VALUES
+('Editora A', 'razao1' 'cep1', 1, 'telefone1', 'Argentina'),
+('Editora B', 'razao1' 'cep2', 2, 'telefone2', 'Brasil'),
+('Editora C', 'razao1' 'cep3', 3, 'telefone3', 'Chile');
+
+INSERT INTO autor
+(nome_autor, rg_autor)
+VALUES
+('autor1', 11),
+('autor2', 12),
+('autor3', 13);
+
+INSERT INTO financiador
+(nome_financiador, cnpj_financiador)
+VALUES
+('fcd1', 'cnpj1'),
+('fcd2', 'cnpj3'),
+('fcd3', 'cnpj3');
+
+INSERT INTO cliente
+(nome_cliente, rg_cliente, cpf_cliente, pais, cep_cliente, numero_cliente)
+VALUES
+('nome1', 21, 111, 'Brasil', 'cep1', 1),
+('nome2', 22, 222, 'Argentina', 'cep2', 2),
+('nome3', 23, 333, 'Chile', 'cep3', 3);
+
+INSERT INTO livro
+(isbn_livro, titulo_livro, preco_livro, categoria_livro, editora_id, autor_id, financiador_id)
+VALUES
+('isbn1', 'titulo1', 100.00, 'Horror', 1, 1, 1),
+('isbn2', 'titulo2', 100.00, 'Ação', 2, 2, 2),
+('isbn3', 'titulo3', 100.00, 'Romance', 3, 3, 3);
+
+INSERT INTO pedido
+(qtd_pedido, livro_id, cliente_id)
+VALUES
+(1, 1, 1),
+(2, 2, 2),
+(3, 3, 3);
+
+SELECT * FROM livro;
+SELECT * FROM financiador;
+SELECT * FROM cliente;
+SELECT * FROM pedido;
+SELECT * FROM editora;
+SELECT * FROM autor;
