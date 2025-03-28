@@ -85,7 +85,7 @@ body{
 
 #lbltexto{
     color: white;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: sans-serif;
     font-size: 70px;
 }
 
@@ -93,6 +93,7 @@ body{
     margin: 10px 0 35px 0; /* topo - direita - baixo - esquerda */
     color: white;
     font-size: 25px;
+    font-family: Arial;
 }
 
 .icons{
@@ -103,18 +104,31 @@ body{
 input{
     height: 9%;
     width: 55%;
+    border: 0;
+    background-color: rgb(230, 223, 223);
 }
 
 button{
     border-radius: 30px;
     height: 50px;
     width: 170px;
-    border: solid 3px white;
+    border: solid 1px white;
     background-color: rgb(223, 64, 15);
     color: white;
 }
 
 #titulo{
     font-size: 80px;
+    font-family: sans-serif;
     font-weight: bold;
+}
+
+#ebulogin{
+    font-family: Arial;
+    font-size: 20px;
+}
+
+#ebupwr{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
 }
