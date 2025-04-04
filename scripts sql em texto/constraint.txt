@@ -1,0 +1,44 @@
+CREATE DATABASE regra_constraint;
+
+CREATE TABLE usuario(
+id_cliente INT NOT NULL AUTO_INCREMENT,
+nome VARCHAR (50) NOT NULL,
+cpf BIGINT UNIQUE,
+pais VARCHAR (50) DEFAULT 'Brasil',
+garduado ENUM('Sim', 'Não'),
+num_filhos INT,
+CHECK (num_filhos >=0),
+PRIMARY KEY (id_cliente)
+);
+
+SELECT * FROM usuario;
+
+-- CONSTRAINT NOT NULL (coluna não pode estar vazia)
+INSERT INTO usuario
+(nome, cpf, pais, graduado, num_filhos)
+VALUES
+('Joao', 12345678911, 'Brasil', 'Sim', 2);
+
+-- CONTRAINT UNIQUE (valor não pode se repetir)
+INSERT INTO usuario
+(nome, cpf, pais, graduado, num_filhos)
+VALUES
+('Maria', 12345678911, 'Chile', 'Nao', 1);
+
+-- CONSTRAINT DEFAULT (preenche automaticamente com valor definido na table caso o valor o não tenha sido colocado)
+INSERT INTO usuario
+(nome, cpf, pais, graduado, num_filhos)
+VALUES
+('Carlos', 44556677911, 'Sim', 2);
+
+-- CONSTRAINT ENUM (aceita somente os valores escolhidos na tabale) 
+INSERT INTO usuario
+(nome, cpf, pais, graduado, num_filhos)
+VALUES
+('Ricardo', 98765432111, 'Brasil', 'Incompleto', 2);
+
+-- CONSTRAINT CHECK (checa se o valor dado corresponde com a condição colocada na tabela)
+INSERT INTO usuario
+(nome, cpf, pais, graduado, num_filhos)
+VALUES
+('Ana', 88345678911, 'Argentina', 'Sim', -1);
