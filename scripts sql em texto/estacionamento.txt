@@ -1,0 +1,35 @@
+CREATE DATABASE estacionamento;
+
+CREATE TABLE garagem(
+id_estacionamento INT NOT NULL AUTO_INCREMENT,
+nome VARCHAR(45),
+capacidade INT,
+subsolo ENUM('sim', 'não'),
+especial ENUM('sim', 'não'),
+PRIMARY KEY (id_estacionamento)
+);
+
+INSERT INTO  garagem
+(nome, capacidade, subsolo, especial)
+VALUES
+('Estacionamento A', 20, 'não', 'não'),
+('Estacionamento B', 35, 'sim', 'sim'),
+('Estacionamento C', 40, 'sim', 'sim'),
+('Estacionamento D', 50, 'sim', 'sim'),
+('Estacionamento E', 15, 'sim', 'não'),
+('Estacionamento F', 85, 'sim', 'sim'),
+('Estacionamento G', 100, 'não', 'não');
+
+SELECT nome, capacidade FROM garagem
+WHERE capacidade >= 20 AND capacidade <= 40 AND subsolo = 'sim' AND especial = 'sim'
+ORDER BY capacidade ASC;
+
+SELECT nome, capacidade FROM garagem
+WHERE capacidade > 50
+ORDER BY capacidade DESC;
+
+SELECT nome, capacidade FROM garagem
+WHERE capacidade > 80 OR nome = 'Estacionamento B';
+
+SELECT nome, subsolo, especial FROM garagem
+WHERE subsolo = 'sim' AND especial = 'sim';

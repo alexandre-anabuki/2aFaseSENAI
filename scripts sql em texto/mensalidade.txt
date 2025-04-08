@@ -1,0 +1,57 @@
+CREATE DATABASE mensal;
+
+CREATE TABLE cliente(
+id_cliente INT NOT NULL AUTO_INCREMENT,
+nome VARCHAR (45),
+PRIMARY KEY (id_cliente)
+);
+
+CREATE TABLE mensalidade(
+id_mensalidade INT NOT NULL AUTO_INCREMENT,
+valor DECIMAL (9,2),
+status_pagamento ENUM ('Fatura paga', 'Em débito'),
+cliente_id INT,
+FOREIGN KEY (cliente_id)
+REFERENCES cliente (id_cliente),
+PRIMARY KEY (id_mensalidade)
+);
+
+INSERT INTO cliente
+(nome)
+VALUES
+('Jose'),
+('Carlos'),
+('Marcos');
+
+INSERT INTO mensalidade
+(cliente_id, valor, status_pagamento)
+VALUES
+(1, 650.00, 'Fatura paga'),
+(2, 670.00, 'Fatura paga'),
+(3, 650.00, 'Fatura paga'),
+(1, 690.00, 'Em débito'),
+(2, 740.00, 'Em débito'),
+(3, 760.00, 'Em débito'),
+(3, 800.00, 'Em débito');
+
+SELECT count(mensalidade.status_pagamento) FROM mensalidade;
+
+SELECT cliente.nome, count(mensalidade.status_pagamento) FROM mensalidade
+JOIN cliente
+ON mensalidade.cliente_id = cliente.id_cliente
+GROUP BY cliente.nome;
+
+SELECT cliente.nome, sum(mensalidade.valor) FROM mensalidade
+JOIN cliente
+ON mensalidade.cliente_id = cliente.id_cliente
+GROUP BY cliente.nome;
+
+SELECT cliente.nome, avg(mensalidade.valor) FROM mensalidade
+JOIN cliente
+ON mensalidade.cliente_id = cliente.id_cliente
+GROUP BY cliente.nome;
+
+SELECT cliente.nome, avg(mensalidade.valor) AS medias_das_mensalidades FROM mensalidade
+JOIN cliente
+ON mensalidade.cliente_id = cliente.id_cliente
+GROUP BY cliente.nome;
