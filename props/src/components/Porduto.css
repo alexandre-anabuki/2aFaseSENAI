@@ -1,0 +1,12 @@
+.container-produto{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #ccc;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 200px;
+    height: 300px;
+}
