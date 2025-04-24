@@ -1,0 +1,47 @@
+html{
+  height: 100%;
+}
+
+body{
+  height: 100%;
+  margin: 0;
+  background-color: yellow;
+}
+
+.container-app{
+  height: 100%;
+  padding: 25px;
+  display: flex;
+  background-color: tomato;
+}
+
+.cabecalho{
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  gap: 100px;
+  flex-direction: row;
+  padding: 15px;
+  background-color: aqua;
+}
+
+.item{
+  display: flex;
+  width: 90px;
+  justify-content: space-around;
+  /* gap: 20px; */
+
+  background-color: teal;
+}
+
+.logo{
+  display: flex;
+  width: 35px;
+  /* justify-content: flex-start; */
+  background-color: violet;
+}
+
+.corpo{
+  height: 100%;
+  background-color: bisque;
+}
