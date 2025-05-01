@@ -9,20 +9,21 @@ body{
 }
 
 .container-app{
-  height: 100%;
-  padding: 25px;
+  height: 100vh;
+  /* padding: 25px; */
   display: flex;
-  background-color: tomato;
+  flex-direction: column;
+  /* background-color: tomato; */
 }
 
 .cabecalho{
   display: flex;
-  width: 100%;
+  /* width: 100%; */
   justify-content: space-around;
   gap: 100px;
   flex-direction: row;
-  padding: 15px;
-  background-color: aqua;
+  padding: 5px;
+  background-color: var(--cor-4);
 }
 
 .item{
@@ -31,17 +32,30 @@ body{
   justify-content: space-around;
   /* gap: 20px; */
 
-  background-color: teal;
+  /* background-color: teal; */
 }
 
 .logo{
   display: flex;
-  width: 35px;
+  /* width: 40px; */
+  justify-content: center;
   /* justify-content: flex-start; */
-  background-color: violet;
+  /* background-color: violet; */
 }
 
 .corpo{
   height: 100%;
-  background-color: bisque;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  background-color: var(--cor-6);
+}
+
+.item-meio{
+  height: 500px;
+  width: 350px;
+  display: flex;
+  justify-content: center;
+  background-color: var(--cor-2)
 }
