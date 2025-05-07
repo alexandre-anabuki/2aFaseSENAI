@@ -11,7 +11,14 @@ function Sorteio() {
 
     function cadastroNome(){
         setNome([inputNome, ...nomes])
+        setInputNome('')
     }
+
+    function sortearcliente(){
+      let i = Math.floor(Math.random()*nomes.length)
+      alert('cliente sorteado' + nomes[i])
+    }
+
   return (
     <div className="container-sorteio">
         <h2>SORTEIO!!</h2>
@@ -19,6 +26,7 @@ function Sorteio() {
         <label htmlFor="">Nome</label>
         <input type="text" value={inputNome} onChange={(event) => setInputNome(event.target.value)} />
         <button onClick={cadastroNome}>Cadastrar</button>
+        <button onClick={sortearcliente}>Sortear</button>
     </div>
   )
 }

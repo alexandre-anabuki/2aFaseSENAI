@@ -8,3 +8,8 @@
     align-items: center;            /*alinahmento vertical*/
 }
 
+.titulo{
+    width: 100%;
+    text-align: center;
+    /* background-color: aqua; */
+}

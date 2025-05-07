@@ -1,0 +1,36 @@
+CREATE DATABASE atividade_avaliativa_8;
+
+CREATE TABLE pedido(
+id_pedido INT NOT NULL AUTO_INCREMENT,
+data_horario DATETIME,
+tipo_entrega ENUM ('Normal', 'Urgente'),
+preco DECIMAL(9,2),
+quantidade INT,
+valor_total DECIMAL(9,2),
+valor_total_com_desconto DECIMAL(9,2),
+PRIMARY KEY (id_pedido)
+);
+
+DELIMITER $$
+CREATE TRIGGER atualizacao_valor
+BEFORE INSERT ON pedido
+FOR EACH ROW
+BEGIN
+SET new.valor_total = new.preco * new.quantidade;
+SET new.valor_total_com_desconto = (new.valor_total * 10) / 100;
+END;
+$$
+
+DROP TRIGGER atualizacao_valor;
+
+INSERT INTO pedido
+(data_horario, tipo_entrega, preco, quantidade)
+VALUES
+('2023-01-01 11:10:00', 'Urgente', 10.00, 6),
+('2023-01-02 12:20:00', 'Normal', 150.00, 8),
+('2023-01-03 13:30:00', 'Urgente', 130.00, 15),
+('2023-01-04 14:40:00', 'Normal', 80.00, 3),
+('2023-01-05 15:50:00', 'Urgente', 90.00, 4),
+('2023-01-06 16:00:00', 'Normal', 15.00, 5);
+
+SELECT * FROM pedido;

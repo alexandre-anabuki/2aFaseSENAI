@@ -1,11 +1,10 @@
 import './Header.css'
-import Logo from './Logo'
 
 function Header() {
   return (
     <div className='container-header'>
-        <Logo />
-        <h1 className='titulo'>Farmárcia</h1>
+        <h1>iMesada</h1>
+        <h2>Controle Financeiro</h2>
     </div>
   )
 }
