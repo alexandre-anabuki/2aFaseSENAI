@@ -8,5 +8,6 @@
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  background-color: tomato;
+  align-items: center;
+  /* background-color: tomato; */
 }
