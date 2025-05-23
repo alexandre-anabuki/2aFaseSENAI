@@ -1,0 +1,56 @@
+CREATE DATABASE atividade_avaliativa_9;
+
+CREATE TABLE estudante(
+id_estudante INT NOT NULL AUTO_INCREMENT,
+nome VARCHAR(50),
+matricula INT,
+curso VARCHAR(50),
+cidade VARCHAR(50),
+PRIMARY KEY (id_estudante)
+);
+
+INSERT INTO estudante
+(nome, matricula, curso, cidade)
+VALUES
+('aluno1', 100, 'curso1', 'cidade1'),
+('aluno2', 200, 'curso2', 'cidade2'),
+('aluno3', 300, 'curso3', 'cidade3');
+
+SELECT * FROM estudante;
+
+DELIMITER // 
+CREATE PROCEDURE atualizar_estudantes_1(id_atualiza1 INT, nomeA VARCHAR(50), matriculaA INT, cursoA VARCHAR(50), cidadeA VARCHAR(50))
+BEGIN
+UPDATE estudante
+SET nome = nomeA, matricula = matriculaA, curso = cursoA, cidade = cidadeA
+WHERE id_estudante = id_atualiza1;
+SELECT * FROM estudante;
+END//
+DELIMITER ; 
+
+CALL atualizar_estudantes_1(3, 'nome4', 400, 'curso4', 'cidade4');
+
+DROP PROCEDURE atualizar_estudantes_1;
+
+DELIMITER // 
+CREATE PROCEDURE atualizar_estudantes_2(id_atualiza2 INT)
+BEGIN
+DELETE FROM estudante
+WHERE id_estudante = id_atualiza2;
+SELECT * FROM estudante;
+END//
+DELIMITER ; 
+
+CALL atualizar_estudantes_2(3);
+
+DELIMITER // 
+CREATE PROCEDURE atualizar_estudantes_3()
+BEGIN
+SELECT estudante.curso, count(estudante.curso) FROM estudante
+GROUP BY estudante.curso;
+END//
+DELIMITER ; 
+
+CALL atualizar_estudantes_3();
+
+DROP PROCEDURE atualizar_estudantes_3;
