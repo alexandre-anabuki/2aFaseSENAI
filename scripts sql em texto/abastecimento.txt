@@ -1,0 +1,41 @@
+CREATE DATABASE abastecimento;
+
+CREATE TABLE posto(
+id_posto INT NOT NULL AUTO_INCREMENT,
+preco VARCHAR(45) DEFAULT 'R$6,50',
+capacidade DECIMAL(9,2),
+CHECK (capacidade >0),
+PRIMARY KEY (id_posto)
+);
+
+CREATE TABLE cliente(
+id_cliente INT NOT NULL AUTO_INCREMENT,
+abastecer DECIMAL(9,2),
+posto_id INT,
+FOREIGN KEY (posto_id)
+REFERENCES posto (id_posto),
+PRIMARY KEY (id_cliente)
+);
+
+INSERT INTO posto
+(capacidade)
+VALUES
+(1000.00);
+
+SELECT * FROM posto;
+
+DELIMITER $$
+CREATE TRIGGER capacidade_atual
+AFTER INSERT ON cliente
+FOR EACH ROW
+BEGIN
+UPDATE posto
+SET posto.capacidade = posto.capacidade - new.abastecer
+WHERE posto.id_posto = new.posto_id;
+END;
+$$
+
+INSERT INTO cliente
+(abastecer, posto_id)
+VALUES
+(20.00, 1);
