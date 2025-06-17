@@ -1,0 +1,111 @@
+CREATE DATABASE lojay;
+
+CREATE TABLE representante(
+id_representante INT NOT NULL AUTO_INCREMENT,
+nome VARCHAR(50),
+cnpj BIGINT UNIQUE,
+PRIMARY KEY (id_representante)
+);
+
+CREATE TABLE produto(
+id_produto INT NOT NULL AUTO_INCREMENT,
+nome VARCHAR(50),
+codigo VARCHAR(50),
+estoque INT,
+CHECK (estoque >= 0),
+PRIMARY KEY (id_produto)
+);
+
+CREATE TABLE compra(
+id_compra INT NOT NULL AUTO_INCREMENT,
+data_horario DATETIME,
+quantidade INT,
+produto_id INT,
+FOREIGN KEY (produto_id)
+REFERENCES produto (id_produto),
+representante_id INT,
+FOREIGN KEY (representante_id)
+REFERENCES representante (id_representante),
+PRIMARY KEY (id_compra)
+);
+
+INSERT INTO produto
+(nome, codigo, estoque)
+VALUES
+('produto1', 'codigo1', 10),
+('produto2', 'codigo2', 20),
+('produto3', 'codigo3', 30),
+('produto4', 'codigo4', 40),
+('produto5', 'codigo5', 50);
+
+INSERT INTO representante
+(nome, cnpj)
+VALUES
+('rep1', 1111),
+('rep2', 2222),
+('rep3', 3333);
+
+SELECT * FROM produto;
+
+SELECT * FROM representante;
+
+SELECT max(produto.estoque) FROM produto;
+
+SELECT min(produto.estoque) FROM produto;
+
+DELIMITER $$
+CREATE TRIGGER atualiza_estoque
+AFTER INSERT ON compra
+FOR EACH ROW
+BEGIN
+UPDATE produto
+SET produto.estoque = produto.estoque - new.quantidade
+WHERE produto.id_produto = new.produto_id;
+END$$
+DELIMITER ; 
+
+INSERT INTO compra
+(data_horario, quantidade, produto_id, representante_id)
+VALUES
+('2025-12-10', 5, 1, 1);
+
+INSERT INTO compra
+(data_horario, quantidade, produto_id, representante_id)
+VALUES
+('2025-12-10', 5, 1, 1);
+
+-----------------------------------------------------------
+
+INSERT INTO compra
+(data_horario, quantidade, produto_id, representante_id)
+VALUES
+('2025-12-10', 6, 2, 2);
+
+INSERT INTO compra
+(data_horario, quantidade, produto_id, representante_id)
+VALUES
+('2025-12-10', 7, 2, 2);
+
+---------------------------------------------------------
+
+INSERT INTO compra
+(data_horario, quantidade, produto_id, representante_id)
+VALUES
+('2025-12-10', 10, 4, 3);
+
+INSERT INTO compra
+(data_horario, quantidade, produto_id, representante_id)
+VALUES
+('2025-12-10', 20, 4, 3);
+
+---------------------------------------------------------------
+
+CREATE VIEW view_media_compra AS
+SELECT produto.nome, avg(compra.quantidade) FROM compra
+JOIN produto
+ON compra.produto_id = produto.id_produto;
+
+SELECT * FROM view_media_compra;
+
+SELECT DISTINCT representante.nome FROM representante
+GROUP BY representante.nome;
