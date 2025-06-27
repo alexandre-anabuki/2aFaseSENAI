@@ -1,0 +1,48 @@
+CREATE DATABASE projeto;
+
+CREATE TABLE usuario(
+id_usuario INT NOT NULL AUTO_INCREMENT,
+nome VARCHAR(50),
+senha VARCHAR(50),
+cnpj BIGINT UNIQUE,
+PRIMARY KEY (id_usuario)
+);
+
+CREATE TABLE inventario(
+id_inventario INT NOT NULL AUTO_INCREMENT,
+nome VARCHAR(50),
+estoque INT,
+CHECK (estoque >= 0),
+patrimonio INT,
+preco_unitario DECIMAL(9,2),
+preco_total DECIMAL(9,2),
+PRIMARY KEY (id_inventario)
+);
+
+CREATE TABLE movimentacao(
+id_movimentacao INT NOT NULL AUTO_INCREMENT,
+data_movimento DATE,
+tipo_movimento ENUM ('Entrada', 'Saída'),
+nome_cliente VARCHAR(50),
+nome_item VARCHAR(50),
+quantidade INT,
+custo_total DECIMAL(9,2),
+usuario_id INT,
+FOREIGN KEY (usuario_id)
+REFERENCES usuario (id_usuario),
+inventario_id INT,
+FOREIGN KEY (inventario_id)
+REFERENCES inventario (id_inventario),
+PRIMARY KEY (id_movimentacao)
+);
+
+DELIMITER $$
+CREATE TRIGGER atualiza_inventario
+AFTER INSERT ON movimentacao
+FOR EACH ROW
+BEGIN
+UPDATE inventario
+SET inventario.estoque = inventario.estoque - new.quantidade
+WHERE inventario.id_produto = new.inventario_id;
+END$$
+DELIMITER ; 
